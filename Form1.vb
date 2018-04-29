@@ -266,17 +266,23 @@ Public Class Form1
                 Else
                     waring = waring + "—————————" + vbCrLf
                 End If
+                If strgb = "," And strbig5 <> "," Then
+                    waring = waring + "***第【 " + line.ToString + " 】行GB为空但BIG5不为空***" + vbCrLf + "    BIG5: " + strbig5.Substring(1) + vbCrLf
+                End If
+                If strbig5 = "," And strgb <> "," Then
+                    waring = waring + "***第【 " + line.ToString + " 】行GB不为空但BIG5为空***" + vbCrLf + "    GB: " + strgb.Substring(1) + vbCrLf
+                End If
                 If gbcount <> 0 And big5count <> 0 Then
-                    waring = waring + "***第【 " + line.ToString + " 】行GB与BIG5{\字幕效果}数量不一致***" + vbCrLf + "    GB: " + strgb.Substring(1) + vbCrLf + "    BIG5: " + strbig5.Substring(1) + vbCrLf
-                Else
-                    If gbcount = 0 Then
-                        waring = waring + "第【 " + line.ToString + " 】行BIG5存在{\字幕效果}但GB不存在" + vbCrLf + "    GB: " + strgb.Substring(1) + vbCrLf + "    BIG5: " + strbig5.Substring(1) + vbCrLf
+                        waring = waring + "***第【 " + line.ToString + " 】行GB与BIG5{\字幕效果}数量不一致***" + vbCrLf + "    GB: " + strgb.Substring(1) + vbCrLf + "    BIG5: " + strbig5.Substring(1) + vbCrLf
                     Else
-                        waring = waring + "第【 " + line.ToString + " 】行GB存在{\字幕效果}但BIG5不存在" + vbCrLf + "    GB: " + strgb.Substring(1) + vbCrLf + "    BIG5: " + strbig5.Substring(1) + vbCrLf
+                        If gbcount = 0 Then
+                            waring = waring + "第【 " + line.ToString + " 】行BIG5存在{\字幕效果}但GB不存在" + vbCrLf + "    GB: " + strgb.Substring(1) + vbCrLf + "    BIG5: " + strbig5.Substring(1) + vbCrLf
+                        Else
+                            waring = waring + "第【 " + line.ToString + " 】行GB存在{\字幕效果}但BIG5不存在" + vbCrLf + "    GB: " + strgb.Substring(1) + vbCrLf + "    BIG5: " + strbig5.Substring(1) + vbCrLf
+                        End If
                     End If
                 End If
-            End If
-            count = Math.Min(gbcount, big5count)
+                count = Math.Min(gbcount, big5count)
             Dim gbindex(gbcount), gbindex2(gbcount), big5index(big5count), big5index2(big5count) As Integer
             Dim gblin, gblin2, big5lin, big5lin2 As Integer
             gblin = 0
