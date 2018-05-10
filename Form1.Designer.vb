@@ -231,7 +231,11 @@ Partial Class Form1
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(197, 20)
         Me.Label4.TabIndex = 13
+<<<<<<< HEAD
         Me.Label4.Text = "ver 1.5.0     By _Thomasys-"
+=======
+        Me.Label4.Text = "ver 1.4.1     By _Thomasys-"
+>>>>>>> parent of f6fb9bd... 1.4.2
         '
         'ToolTip1
         '

@@ -149,11 +149,15 @@ Public Class Form1
         sc = ""
         Dim gbinput As IO.StreamReader
         Dim big5input As IO.StreamReader
-        Dim output As IO.FileStream
         Try
-            gbinput = New IO.StreamReader(GBFile, System.Text.Encoding.GetEncoding("UTF-8"))
-            big5input = New IO.StreamReader(BIG5File, System.Text.Encoding.GetEncoding("UTF-8"))
-            output = New IO.FileStream(OutputFile, FileMode.Create)
+            Dim outs As Integer = OutputFile.LastIndexOf("\")
+            Dim outpath As String = Mid(OutputFile, 1, outs)
+            If Not Directory.Exists(outpath) Then
+                Directory.CreateDirectory(outpath)
+            End If
+            gbinput = New IO.StreamReader(GBFile, System.Text.Encoding.GetEncoding("unicode"))
+            big5input = New IO.StreamReader(BIG5File, System.Text.Encoding.GetEncoding("unicode"))
+            FileOpen(3, OutputFile, OpenMode.Output)
         Catch ex As Exception
             MessageBox.Show("指定文件无法访问，请检查文件路径及可访问性！")
             Return -1
@@ -237,10 +241,8 @@ Public Class Form1
         Else
             sc = sc + bz2 + Mid(big5, big5index2(count - 1) + 1)
         End If
-        Dim encode As System.Text.UTF8Encoding = New Text.UTF8Encoding(True)
-        Dim encodedBytes As Byte() = encode.GetBytes(sc)
-        output.Write(encodedBytes, 0, encodedBytes.Length)
-        output.Close()
+        Print(3, sc)
+        FileClose(3)
         gbinput.Close()
         big5input.Close()
         If war Then waring += "——————————————————————" + vbCrLf + "——————————————————————" + vbCrLf
